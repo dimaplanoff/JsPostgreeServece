@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+
+
+<form action="http://localhost:82/excel" method="post" enctype="multipart/form-data">
+
+<input type="file" name="file"/>
+<br>
+<input type="number" name="id" placeholder="ID"/>
+<br>
+<input type="hidden" name="name" value="fnPing"/>
+<br>
+<input type="submit" value="DO IT">
+
+</form>
+
+
+<script>
+
+
+
+let formData = new FormData();
+formData.append('name', 'value1');
+formData.append('id', 'value2');
+formData.append('file', 'value2');
+
+fetch('http://localhost:8013/excel',
+			{
+				method: "POST",
+				headers: {
+					'Accept': '*/*',
+					'Content-Type': 'multipart/form-data'
+				},
+				body: formData
+			}
+	)
+	
+
+
+//fetch('http://localhost:82/post',
+//			{
+//				method: "POST",
+//				headers: {
+//					'Accept': 'application/json',
+//					'Content-Type': 'application/json'
+//				},
+//				body: JSON.stringify({Name: 'sPing', Value : { Test: 'ok'}})
+//			}
+//	)
+//.then( response => {
+//	if (response.status !== 200) {
+//
+//        return Promise.reject();
+//  }
+//    return response.text()
+//})
+//.then(i => console.log(i))
+//.catch(() => console.log('ошибка'));
+
+</script>
+</body>
+</html>

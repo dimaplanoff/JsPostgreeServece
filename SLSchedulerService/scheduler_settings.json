@@ -1,0 +1,24 @@
+{
+  "Tasks": [
+    {
+      "Name": "CurrencyList",
+      "MailTo": "mamont@server.com",
+      "SqlScript": "fnCurrencyList",
+      "Interval": 60,
+      "MailOnSuccess": false,
+      "Parameters": [
+        {
+          "p_json": "https://server.net:8757/bill/currencylists"
+        }
+      ]
+    }
+  ],
+  "MailConf": {
+    "Server": "server.net",
+    "Port": 587,
+    "User": "info",
+    "Password": "passwd",
+    "From": "info@server.net"
+  },
+  "DB": "Host=server.net;Port=5432;Database=db;Username=user;Password=passwd"
+}

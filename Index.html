@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <script>
+
+
+
+fetch('http://WorkStation:81/post',
+			{
+				method: "POST",
+				headers: {
+					'Accept': '*/*',
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({Name: 'fnPing', Value : { Test: 'ok'}})
+			}
+	)
+.then( response => {
+	if (response.status !== 200) {
+
+        return Promise.reject();
+  }
+    return response.text()
+})
+.then(i => console.log(i))
+.catch(() => console.log('ошибка'));
+
+    </script>
+</body>
+</html>

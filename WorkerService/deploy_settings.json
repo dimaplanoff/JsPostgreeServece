@@ -1,0 +1,20 @@
+{
+  "Tasks": [
+    {
+      "Name": "BackDeploy",
+      "MailTo": "mail.dima.msk@ya.ru",
+      "FromDir": "D:\\CODE\\site\\bin\\Debug\\net6.0",
+      "ToDir": "C:\\site\\backend",
+      "Exceptions": [ "swagger", "web_settings.json", "web.config" ],
+      "ScriptBefore": "C:\\Windows\\System32\\inetsrv\\appcmd.exe stop sites site.backend & timeout 5 > NUL",
+      "ScriptAfter": "C:\\Windows\\System32\\inetsrv\\appcmd.exe start sites site.backend"
+    }
+  ],
+  "MailConf": {
+    "Server": "server.net",
+    "Port": 587,
+    "User": "info",
+    "Password": "passwd",
+    "From": "info@server.net"
+  }
+}

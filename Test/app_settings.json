@@ -1,0 +1,3 @@
+{
+  "DbConnectionString": "Host=server.net;Port=5432;Database=db;Username=user;Password=passwd"
+}

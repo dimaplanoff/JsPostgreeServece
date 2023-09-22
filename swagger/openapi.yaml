@@ -1,0 +1,1446 @@
+openapi: 3.0.0
+info:
+  version: 1.0.4
+  title: W4M API
+  contact:
+    email: mamontov-serg@bk.ru
+security:
+  - bearerAuth: []
+paths:
+  /ping:
+    get:
+      tags: ['Service']
+      summary: Server heartbeat operation
+      security: []
+      responses:
+        '200':
+          description: OK
+        '500':
+          description: Service Unavailable
+
+
+
+  /registrs:
+    post:
+      tags: ['registrs']
+      summary: Регистрация нового пользователя
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/registrs_post'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/registrs_post'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '400':
+          description: Invalid data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+
+
+  /registrconfirms:
+    post:
+      tags: ['registrconfirms']
+      summary: Подтверждение регистрация пользователя
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/registrconfirms_post'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/registrconfirms_post'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '400':
+          description: Invalid data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+
+
+
+  /forgots:
+    post:
+      tags: [ 'forgots' ]
+      summary: Забыли пароль
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/forgots_post'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/forgots_post'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '400':
+          description: Invalid data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+
+  /langs:
+    get:
+      tags: ['langs']
+      summary: Языки
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/langs_get'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+
+  /localizers:
+    get:
+      tags: ['localizers']
+      summary: Локализатор
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/localizers_get'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+
+
+
+  /codes/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: Идентификатор языка
+        schema:
+          type: integer
+    get:
+      tags: [ 'codes' ]
+      summary: Выбор всего по определенному языку
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/codes_get_one'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+
+
+  /auth:
+    post:
+      tags: ['auth']
+      summary: Авторизация
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/auth_post'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/auth_post'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '400':
+          description: Invalid data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+
+
+
+  /users:
+    get:
+      tags: ['users']
+      summary: Данные пользователя + Остаток на счете
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/users_get'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+
+
+  /passedits_post:
+    post:
+      tags: [ 'passedits' ]
+      summary: Изменение пароля у пользователя
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/passedits_post'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/passedits_post'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '400':
+          description: Invalid data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+
+  /payments:
+    get:
+      tags: ['payments']
+      summary: Платежи пользователя
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payments_get'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+    post:
+      tags: [ 'payments' ]
+      summary: Пополнение
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/payments_post'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payment_post'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '400':
+          description: Invalid data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+
+  /payments/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: Идентификатор платежа
+        schema:
+          type: integer
+    get:
+      tags: [ 'payments' ]
+      summary: Выбор одного платежа
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payments_get_one'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+
+
+
+  /apps:
+    post:
+      tags: [ 'apps' ]
+      summary: Добавить приложение (Первая версия)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/apps_post'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apps_post'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '400':
+          description: Invalid data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+
+    get:
+      tags: ['apps']
+      summary: Все приложения пользователя
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apps_get'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+
+  /apps/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: Идентификатор приложения
+        schema:
+          type: integer
+    get:
+      tags: [ 'apps' ]
+      summary: Выбор одного приложения
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apps_get_one'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+
+
+
+  /appblocks:
+    post:
+      tags: [ 'appblocks' ]
+      summary: Блокировка приложения
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/appblocks_post'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/appblocks_post'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '400':
+          description: Invalid data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+
+
+
+  /androidversions:
+    post:
+      tags: [ 'androidversions' ]
+      summary: Добавить новую версию приложение Android
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/androidversions_post'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/androidversions_post'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '400':
+          description: Invalid data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    get:
+      tags: ['androidversions']
+      summary: Все версии приложения Android
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/androidversions_get'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+  /androidversions/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: Идентификатор версии приложения Android
+        schema:
+          type: integer
+    get:
+      tags: [ 'androidversions' ]
+      summary: Выбор одной версии приложения Android
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/vandroidversions_get_one'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+
+
+  /accesses:
+    get:
+      tags: [ 'accesses' ]
+      summary: Все доступы пользователя
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/accesses_get'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+  /accesses/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: Идентификатор доступа
+        schema:
+          type: integer
+    get:
+      tags: [ 'accesses' ]
+      summary: Выбор одной строки доступа
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/accesses_get_one'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+
+
+  /tokenpushes:
+    post:
+      tags: [ 'tokenpushes' ]
+      summary: Регистрация Token приложения
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tokenpushes_post'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tokenpushes_post'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '400':
+          description: Invalid data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+
+
+
+  /messagepushs:
+    post:
+      tags: [ 'messagepushs' ]
+      summary: Отправка Push-уведомления
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/messagepushs_post'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/messagepushs_post'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '400':
+          description: Invalid data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    get:
+      tags: ['messagepushs']
+      summary: Все Push-уведомления пользователя
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/messagepushs_get'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+  /messagepushs/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: Идентификатор Push-уведомления
+        schema:
+          type: integer
+    get:
+      tags: [ 'messagepushs' ]
+      summary: Выбор одного Push-уведомления
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/messagepushs_get_one'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+
+
+  /parameters/{package_name}:
+    parameters:
+      - name: package_name
+        in: path
+        required: true
+        description: Наименование package приложения
+        schema:
+          type: string
+    get:
+      tags: [ 'parameters' ]
+      summary: Выбор одной строки параметров приложения
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/parameters_get_one'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+
+
+
+
+
+
+  /zonas:
+    get:
+      tags: [ 'zonas' ]
+      summary: Все доменные зоны
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/zonas_get'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+  /zonas/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: Идентификатор доменной зоны
+        schema:
+          type: integer
+    get:
+      tags: [ 'zonas' ]
+      summary: Выбор одной доменной зоны
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/zonas_get_one'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+
+  /tariffs:
+    get:
+      tags: [ 'tariffs' ]
+      summary: Все основные тарифы
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tariffs_get'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+  /tariffs/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: Идентификатор тарифа
+        schema:
+          type: integer
+    get:
+      tags: [ 'tariffs' ]
+      summary: Выбор одного основного тарифа
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tariffs_get_one'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+
+
+
+  /tariffusers:
+    get:
+      tags: [ 'tariffusers' ]
+      summary: Все активные тарифы Пользователя
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tariffusers_get'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+
+
+
+  /tariffontariffs:
+    get:
+      tags: [ 'tariffontariffs' ]
+      summary: Все переходы с тарифа на тариф
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tariffontariffs_get'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+    post:
+      tags: [ 'tariffontariffs' ]
+      summary: Создание перехода с тарифа на тариф
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tariffontariffs_post'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tariffontariffs_post'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '400':
+          description: Invalid data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+
+  /tariffontariffs/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: Идентификатор перехода с тарифа на тариф
+        schema:
+          type: integer
+    get:
+      tags: [ 'tariffontariffs' ]
+      summary: Выбор одного перехода с тарифа на тариф
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tariffontariffs_get_one'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+
+
+
+
+  /downloads/{download_key}:
+    parameters:
+      - id: Ключ скачивания
+        in: path
+        required: true
+        description: Ключ скачивания
+        schema:
+          type: string
+    get:
+      tags: [ 'downloads' ]
+      summary: Выбор одной строки Скачивания файла
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/downloads_get_one'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+
+
+  /supports:
+    post:
+      tags: [ 'supports' ]
+      summary: Добавить заявку
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/supports_post'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/supports_post'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '400':
+          description: Invalid data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    get:
+      tags: [ 'supports' ]
+      summary: Все заявки пользователя
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/supports_get'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+
+  /supports/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: Идентификатор заявки
+        schema:
+          type: integer
+    get:
+      tags: [ 'supports' ]
+      summary: Выбор одной заявки
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/supports_get_one'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+
+
+  /supportchats:
+    get:
+      tags: [ 'supportchats' ]
+      summary: Все заявки пользователя
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/supportchats_get'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+          
+
+
+  /supporttexts:
+    post:
+      tags: [ 'supporttexts' ]
+      summary: Добавить текст в заявке
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/supporttexts_post'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/supporttexts_post'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '400':
+          description: Invalid data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    get:
+      tags: [ 'supporttexts' ]
+      summary: Все тексты заявки пользователя
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/supporttexts_get'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+  /supporttexts/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: Идентификатор текста заявки
+        schema:
+          type: integer
+    get:
+      tags: [ 'supporttexts' ]
+      summary: Выбор одного текста заявки
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/supporttexts_get_one'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+
+
+
+
+  /preloaders:
+    get:
+      tags: [ 'preloaders' ]
+      summary: Все прелоадеры
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/preloaders_get'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+  /preloaders/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: Идентификатор прелоадера
+        schema:
+          type: integer
+    get:
+      tags: [ 'preloaders' ]
+      summary: Выбор одного прелоадера
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/preloaders_get_one'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+
+
+
+
+
+  /currencys:
+    get:
+      tags: ['currencys']
+      summary: Валюта
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/currencys_get'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+
+
+  /keybillings:
+    get:
+      tags: ['keybillings']
+      summary: Ключ биллинга
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/keybillings_get'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+
+
+  /monthpays:
+    post:
+      tags: [ 'monthpays' ]
+      summary: Привязать к W4MGO
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/monthpays_post'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/monthpays_post'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '400':
+          description: Invalid data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+
+  /monthpayclears:
+    post:
+      tags: [ 'monthpayclears' ]
+      summary: Отвязать от W4MGO
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/monthpayclears_post'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/monthpayclears_post'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '400':
+          description: Invalid data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+
+components:
+  responses:
+    UnauthorizedError:
+      description: Authentication information is missing or invalid
+      headers:
+        WWW_Authenticate:
+          schema:
+            type: string
+
+
+  schemas:
+    registrs_post:
+      type: object
+      properties:
+        login:
+          type: string
+        password:
+          type: string
+        currencyId:
+          type: integer
+
+    registrconfirms_post:
+      type: object
+      properties:
+        password:
+          type: string
+
+    forgots_post:
+      type: object
+      properties:
+        login:
+          type: string
+
+
+    langs_get:
+      type: object
+
+
+    localizers_get:
+      type: object
+
+
+    codes_get_one:
+      type: object
+      properties:
+        id:
+          type: integer
+
+    auth_post:
+      type: object
+      properties:
+        login:
+          type: string
+        password:
+          type: string
+
+    users_get:
+      type: object
+
+    passedits_post:
+      type: object
+      properties:
+        passwordOld:
+          type: string
+        password:
+          type: string
+        passwordRepeat:
+          type: string
+
+    payments_get:
+      type: object
+
+    payments_get_one:
+      type: object
+      properties:
+        id:
+          type: integer
+
+    payments_post:
+      type: object
+      properties:
+        summa:
+          type: string
+
+    apps_post:
+      type: object
+      properties:
+        urlApp:
+          type: string
+        nameApp:
+          type: string
+        tariffId:
+          type: integer
+        zonaId:
+          type: integer
+        companyPackage:
+          type: string
+        namePackage:
+          type: string
+        checkAndroid:
+          type: integer
+        checkIos:
+          type: integer
+        fileicon:
+          type: string
+        filepush:
+          type: string
+        filepreloader:
+          type: string
+        banner:
+          type: string
+
+    apps_get:
+      type: object
+
+    apps_get_one:
+      type: object
+      properties:
+        id:
+          type: integer
+
+    appblocks_post:
+      type: object
+      properties:
+        appId:
+          type: integer
+        blockApp:
+          type: integer
+
+    androidversions_post:
+      type: object
+      properties:
+        appId:
+          type: integer
+        urlApp:
+          type: string
+        nameApp:
+          type: string
+        fileicon:
+          type: string
+        filepush:
+          type: string
+        filepreloader:
+          type: string
+        banner:
+          type: string
+
+    androidversions_get:
+      type: object
+
+    androidversions_get_one:
+      type: object
+      properties:
+        id:
+          type: integer
+
+    accesses_get:
+      type: object
+
+    accesses_get_one:
+      type: object
+      properties:
+        id:
+          type: integer
+
+    tokenpushes_post:
+      type: object
+      properties:
+        packageName:
+          type: string
+        deviceId:
+          type: string
+        deviceToken:
+          type: string
+        platform:
+          type: string
+
+    messagepushs_post:
+      type: object
+      properties:
+        appId:
+          type: integer
+        titleMessage:
+          type: string
+        textMessage:
+          type: string
+
+    messagepushs_get:
+      type: object
+
+    messagepushs_get_one:
+      type: object
+      properties:
+        id:
+          type: string
+
+
+    parameters_get_one:
+      type: object
+      properties:
+        id:
+          type: string
+
+    zonas_get:
+      type: object
+
+    zonas_get_one:
+      type: object
+      properties:
+        id:
+          type: string
+
+
+    tariffs_get:
+      type: object
+
+    tariffs_get_one:
+      type: object
+      properties:
+        id:
+          type: string
+
+
+    tariffusers_get:
+      type: object
+
+
+
+    tariffontariffs_get:
+      type: object
+
+    tariffontariffs_get_one:
+      type: object
+      properties:
+        id:
+          type: string
+
+    tariffontariffs_post:
+      type: object
+      properties:
+        appId:
+          type: integer
+        tariffId:
+          type: integer
+        ontariffId:
+          type: integer
+
+
+
+    downloads_get_one:
+      type: object
+      properties:
+        id:
+          type: string
+
+
+    supports_post:
+      type: object
+      properties:
+        title:
+          type: string
+
+    supports_get:
+      type: object
+
+    supports_get_one:
+      type: object
+      properties:
+        id:
+          type: integer
+
+
+
+    supporttexts_post:
+      type: object
+      properties:
+        supportId:
+          type: integer
+        text:
+          type: string
+
+    supporttexts_get:
+      type: object
+
+    supporttexts_get_one:
+      type: object
+      properties:
+        id:
+          type: integer
+
+
+    supportchats_get:
+      type: object
+
+
+    preloaders_get:
+      type: object
+
+    preloaders_get_one:
+      type: object
+      properties:
+        id:
+          type: integer
+
+
+
+    currencys_get:
+      type: object
+
+
+    keybillings_get:
+      type: object
+
+
+    monthpays_post:
+      type: object
+      properties:
+        appId:
+          type: integer
+        mail:
+          type: string
+        summa:
+          type: string
+
+
+    monthpayclears_post:
+      type: object
+      properties:
+        appId:
+          type: integer
+
+
+
+
+
+
+
+    Error:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+        errorText:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+tags:
+  - name: Service
+  - name: registrs
+  - name: registrconfirms
+  - name: forgots
+  - name: langs
+  - name: codes
+  - name: auth
+  - name: users
+  - name: passedits
+  - name: payments
+  - name: apps
+  - name: appblocks
+  - name: androidversions
+  - name: accesses
+  - name: tokenpushes
+  - name: messagepushs
+  - name: parameters
+  - name: zonas
+  - name: tariffs
+  - name: tariffusers
+  - name: tariffontariffs
+  - name: downloads
+  - name: supports
+  - name: supporttexts
+  - name: supportchats
+  - name: localizers
+  - name: currencys
+  - name: preloaders
+  - name: keybillings
+  - name: monthpays
+  - name: monthpayclears
+
+
+
+
+
+
+
+
+
