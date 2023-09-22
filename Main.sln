@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SLLibrary", "SLLibrary\SLLi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SLSchedulerService", "SLSchedulerService\SLSchedulerService.csproj", "{F8C19A76-CEBB-4141-AA5D-DF82241B48CD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MainService", "Test\MainService.csproj", "{50A2C403-DA0A-41F0-A3A2-DE9D425977BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MainService", "MainService\MainService.csproj", "{BC22BEBB-2D8F-45E1-A4D1-7A5282BCD03A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{F8C19A76-CEBB-4141-AA5D-DF82241B48CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8C19A76-CEBB-4141-AA5D-DF82241B48CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8C19A76-CEBB-4141-AA5D-DF82241B48CD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{50A2C403-DA0A-41F0-A3A2-DE9D425977BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{50A2C403-DA0A-41F0-A3A2-DE9D425977BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{50A2C403-DA0A-41F0-A3A2-DE9D425977BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{50A2C403-DA0A-41F0-A3A2-DE9D425977BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC22BEBB-2D8F-45E1-A4D1-7A5282BCD03A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC22BEBB-2D8F-45E1-A4D1-7A5282BCD03A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC22BEBB-2D8F-45E1-A4D1-7A5282BCD03A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC22BEBB-2D8F-45E1-A4D1-7A5282BCD03A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
